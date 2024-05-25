@@ -2,7 +2,7 @@ import 'package:expensive_app_2/datetime/date_time_helper.dart';
 import 'package:expensive_app_2/models/Expensive_Item.dart';
 import 'package:flutter/material.dart';
 
-class ExpenseData {
+class ExpenseData extends ChangeNotifier {
   //list of all expenses
 
   List<ExpensiveItem> overallExpensive_list = [];
@@ -15,11 +15,13 @@ class ExpenseData {
 //add into list
   void AddNewExpense(ExpensiveItem expensiveItem) {
     overallExpensive_list.add(expensiveItem);
+    notifyListeners();
   }
 
   //delete into list
   void DeleteExpense(ExpensiveItem expensiveItem) {
     overallExpensive_list.remove(expensiveItem);
+    notifyListeners();
   }
 
   //get weekday (mon,tues,ect) from a datetime object
@@ -84,9 +86,5 @@ DailyExpensiveSummary=[[2023/01/30]:$25]
       }
     }
     return dailExpenseSumary;
-  }
-
-  void don() {
-    print('fvff');
   }
 }
