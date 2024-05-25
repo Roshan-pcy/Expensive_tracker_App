@@ -85,4 +85,6 @@ DailyExpensiveSummary=[[2023/01/30]:$25]
     }
     return dailExpenseSumary;
   }
+
+  void don() {}
 }
