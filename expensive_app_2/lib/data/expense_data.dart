@@ -22,6 +22,8 @@ class ExpenseData extends ChangeNotifier {
   void DeleteExpense(ExpensiveItem expensiveItem) {
     overallExpensive_list.remove(expensiveItem);
     notifyListeners();
+
+    ///added
   }
 
   //get weekday (mon,tues,ect) from a datetime object
