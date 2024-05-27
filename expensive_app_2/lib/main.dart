@@ -1,9 +1,13 @@
 import 'package:expensive_app_2/data/expense_data.dart';
 import 'package:expensive_app_2/pages/homepage..dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  await Hive.initFlutter();
+  await Hive.openBox('expense_database');
+
   runApp(const MyApp());
 }
 

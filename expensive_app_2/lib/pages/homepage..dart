@@ -18,6 +18,19 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   final expensiveName = TextEditingController();
   final expensiveAmount = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<ExpenseData>(context, listen: false).prepareData();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Access inherited widgets here
+
+    // Use expenseData to initialize state or perform other actions
+  }
 
   void addnewExpense() {
     showDialog(
@@ -65,12 +78,15 @@ class _HomepageState extends State<Homepage> {
   //save
   void save() {
     //create a exsense
-    ExpensiveItem expenseItem = ExpensiveItem(
-        name: expensiveName.text,
-        amount: expensiveAmount.text,
-        dateTime: DateTime.now());
-    // add new expense
-    Provider.of<ExpenseData>(context, listen: false).AddNewExpense(expenseItem);
+    if (expensiveName.text.isNotEmpty && expensiveAmount.text.isNotEmpty) {
+      ExpensiveItem expenseItem = ExpensiveItem(
+          name: expensiveName.text,
+          amount: expensiveAmount.text,
+          dateTime: DateTime.now());
+      // add new expense
+      Provider.of<ExpenseData>(context, listen: false)
+          .AddNewExpense(expenseItem);
+    }
     Navigator.pop(context);
     expensiveName.clear();
     expensiveAmount.clear();
@@ -81,6 +97,10 @@ class _HomepageState extends State<Homepage> {
     expensiveName.clear();
     expensiveAmount.clear();
     Navigator.pop(context);
+  }
+
+  void deleteExpense(ExpensiveItem expensedata) {
+    Provider.of<ExpenseData>(context, listen: false).DeleteExpense(expensedata);
   }
 
   @override
@@ -115,6 +135,8 @@ class _HomepageState extends State<Homepage> {
                     itemCount: value.getAllExpenseList().length,
                     itemBuilder: (context, index) {
                       return Exspensivetile(
+                        onpressed: (p0) =>
+                            deleteExpense(value.getAllExpenseList()[index]),
                         name: value.getAllExpenseList()[index].name,
                         amount: value.getAllExpenseList()[index].amount,
                         dateTime: value.getAllExpenseList()[index].dateTime,

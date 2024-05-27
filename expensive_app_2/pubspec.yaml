@@ -38,6 +38,9 @@ dependencies:
   cupertino_icons: ^1.0.6
   fl_chart:
   flutter_secure_storage: ^9.2.2
+  hive:
+  hive_flutter:
+  flutter_slidable:
 
 dev_dependencies:
   flutter_test:

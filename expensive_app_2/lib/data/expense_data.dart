@@ -1,3 +1,4 @@
+import 'package:expensive_app_2/data/Hive_database.dart';
 import 'package:expensive_app_2/datetime/date_time_helper.dart';
 import 'package:expensive_app_2/models/Expensive_Item.dart';
 import 'package:flutter/material.dart';
@@ -12,16 +13,27 @@ class ExpenseData extends ChangeNotifier {
     return overallExpensive_list;
   }
 
+  //prepare to dispaly data
+  final db = HiveDatabase();
+  void prepareData() {
+    if (db.readData().isNotEmpty) {
+      overallExpensive_list = db.readData();
+      print('called prepared data');
+    }
+  }
+
 //add into list
   void AddNewExpense(ExpensiveItem expensiveItem) {
     overallExpensive_list.add(expensiveItem);
     notifyListeners();
+    db.saveData(overallExpensive_list);
   }
 
   //delete into list
   void DeleteExpense(ExpensiveItem expensiveItem) {
     overallExpensive_list.remove(expensiveItem);
     notifyListeners();
+    db.saveData(overallExpensive_list);
 
     ///added
   }
